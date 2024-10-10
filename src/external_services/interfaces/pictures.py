@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class IAIPictureService(ABC):
+class IAIPictureManager(ABC):
     @abstractmethod
     async def get_picture(self, prompt: str) -> str:
         pass
