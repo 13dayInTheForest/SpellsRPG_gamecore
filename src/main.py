@@ -1,16 +1,25 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
+from contextlib import asynccontextmanager
+from uvicorn import run as run_server
+from api import api_v1
 
 
-# Press the green button in the gutter to run the script.
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    yield
+
+
+app = FastAPI(
+    lifespan=lifespan
+)
+app.include_router(api_v1)
+
+
+@app.get('/')
+async def redirect_from_main_to_docs():
+    return RedirectResponse('/docs')
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    run_server('main:app', host='0.0.0.0', port=3000, reload=True)

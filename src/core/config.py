@@ -10,6 +10,10 @@ class Settings(BaseSettings):
     )
     TOGETHER_API_KEY: str
 
+    DEFAULT_STYLE: str
+    PROFILE_STYLE_PROMPT: str
+    TEMPLE_PROFILE_PROMPT: str
+
 
 settings = Settings()
 
