@@ -8,5 +8,6 @@ api_v1 = APIRouter(
 
 api_v1.include_router(
     pic_router,
-    prefix='/pic'
+    prefix='/pic',
+    tags=['Pictures']
 )

@@ -7,7 +7,7 @@ from src.core.config import settings
 
 
 class FluxFreeAIPictureService(IAIPictureService):
-    async def get_picture(self, pic_request: CreatePicRequest):
+    async def get_picture(self, pic_request: CreatePicRequest) -> PicDetail:
         try:
             async with httpx.AsyncClient() as together:
                 response = await together.post(
