@@ -1,5 +1,7 @@
 from datetime import datetime
+from typing import Annotated
 
+from fastapi import UploadFile, File
 from pydantic import BaseModel, constr
 from src.core.config import settings
 
@@ -15,3 +17,8 @@ class PicDetail(BaseModel):
     time_generated: datetime = datetime.utcnow()
     url: str
     response_time: float
+
+
+class SavePicture(BaseModel):
+    user: str
+    file: Annotated[UploadFile, File(...)]

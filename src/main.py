@@ -22,4 +22,4 @@ async def redirect_from_main_to_docs():
 
 
 if __name__ == '__main__':
-    run_server('main:app', host='0.0.0.0', port=3000, reload=True)
+    run_server('main:app', host='127.0.0.1', port=8000, reload=True)

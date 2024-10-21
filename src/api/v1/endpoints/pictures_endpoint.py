@@ -1,14 +1,14 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, UploadFile, File
 from fastapi.responses import StreamingResponse
 
-from src.schemas.pic_schemas import CreatePicRequest, PicDetail
+from src.schemas.pic_schemas import CreatePicRequest, PicDetail, SavePicture
 from src.services.pictures_service import ProfilePictureService
 from src.utils.image_utils import get_picture_from_url
 
 router = APIRouter()
 
 
-@router.post('/create/profile_pic')
+@router.post('/profile/create')
 async def create_profile_pic(prompt: CreatePicRequest) -> PicDetail:
     pic_manager = ProfilePictureService()
     return await pic_manager.generate(prompt)
@@ -24,7 +24,13 @@ async def show_picture_by_link(prompt: str):
     )
 
 
-@router.post('save/profile_pic/')
-async def save_profile_pic(detail: PicDetail):
+@router.post('/profile/{id}/save')
+async def save_profile_pic(user_id: int, picture: UploadFile = File(...)):
     pic_manager = ProfilePictureService()
-    return await pic_manager.save(detail)
+    return await pic_manager.save(picture, user_id)
+
+
+@router.get('/profile/get')
+async def get_profile_pic(user_id: int):
+    pic_manager = ProfilePictureService()
+    return await pic_manager.get(user_id)
