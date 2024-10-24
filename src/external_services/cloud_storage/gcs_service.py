@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from asyncio import get_event_loop
 from google.cloud import storage
 
-from src.core.interfaces.cloud_stogare_interface import ICloudStorage
+from src.core.interfaces import ICloudStorage
 
 
 class GoogleCloudStorageService(ICloudStorage):

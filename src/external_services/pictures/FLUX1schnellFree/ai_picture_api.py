@@ -2,9 +2,8 @@ from fastapi import HTTPException
 import httpx
 from httpx._exceptions import ConnectTimeout
 
-
-from src.schemas.pic_schemas import PicDetail, CreatePicRequest
-from src.core.interfaces.pictures_interface import IAIPictureService
+from src.pictures.schemas import PicDetail, CreatePicRequest
+from src.core.interfaces import IAIPictureService
 from src.core.config import settings
 
 
@@ -27,7 +26,7 @@ class FluxFreeAIPictureService(IAIPictureService):
                         "height": 1024,
                         "steps": 4,
                         "n": 1,
-                        "response_format": "url"
+                        "response_format": "url",
                     }
                 )
                 response = response.json()

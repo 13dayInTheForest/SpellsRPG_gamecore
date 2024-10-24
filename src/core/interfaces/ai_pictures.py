@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from src.schemas.pic_schemas import CreatePicRequest, PicDetail
+from src.pictures.schemas import CreatePicRequest, PicDetail
 
 
 class IAIPictureService(ABC):

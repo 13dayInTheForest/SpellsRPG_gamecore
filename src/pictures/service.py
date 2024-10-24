@@ -1,15 +1,15 @@
 from fastapi import UploadFile, HTTPException
 from fastapi.responses import StreamingResponse
 from src.core.config import settings
-from src.core.interfaces.cloud_stogare_interface import ICloudStorage
-from src.core.interfaces.pictures_interface import IAIPictureService
+from src.core.interfaces.cloud_storage import ICloudStorage
+from src.core.interfaces.ai_pictures import IAIPictureService
 from src.external_services.cloud_storage.gcs_service import GoogleCloudStorageService
 from src.external_services.pictures import FluxFreeAIPictureService
-from src.schemas.pic_schemas import CreatePicRequest, PicDetail
+from src.pictures.schemas import CreatePicRequest, PicDetail
 
 
 class PictureService:
-    style = settings.DEFAULT_STYLE
+    style = settings.DEFAULT_STYLE_PROMPT
     bucket = 'spells_pictures'
     blob = 'stuff'
 
