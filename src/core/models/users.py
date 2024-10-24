@@ -15,6 +15,7 @@ users = Table(
     Column('min_atk', Integer),
     Column('max_atk', Integer),
     Column('exp_points', Integer),
+    Column('title', Integer),
 
     Column('class_id', Integer),  # Должен быть привязан к таблице классов
     Column('potential_id', Integer),
@@ -24,8 +25,10 @@ users = Table(
     Column('current_location_id', Integer),
     Column('citizen_kingdom_id', Integer),
 
-    Column('magic_lvl', Integer),
-    Column('atk_lvl', Integer),
+    Column('magic_lvl', Integer, default=5),
+    Column('physical_lvl', Integer, default=5),
+    Column('agility_lvl', Integer, default=5),
+    Column('carma_lvl', Integer, default=5),
 
     Column('avatar_prompt', String, default=settings.DEFAULT_STYLE_PROMPT),
     Column('avatar_url', String),
@@ -36,5 +39,3 @@ users = Table(
     Column('human_killed', Integer),
     Column('friends_count', Integer),
 )
-
-

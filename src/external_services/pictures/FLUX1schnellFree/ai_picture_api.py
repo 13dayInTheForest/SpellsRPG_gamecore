@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 import httpx
-from httpx._exceptions import ConnectTimeout
+from httpx._exceptions import HTTPError
 
 from src.pictures.schemas import PicDetail, CreatePicRequest
 from src.core.interfaces import IAIPictureService
@@ -40,7 +40,7 @@ class FluxFreeAIPictureService(IAIPictureService):
                     url=response['data'][0]['url'],
                     response_time=response['data'][0]['timings']['inference']
                 )
-        except ConnectTimeout as e:
+        except HTTPError as e:
             raise HTTPException(status_code=400, detail=e)
 
 
