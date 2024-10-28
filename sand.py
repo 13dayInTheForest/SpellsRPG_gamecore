@@ -45,32 +45,17 @@ def add_buffs(user, enemy, buffs: dict[tuple: tuple]):
     return user
 
 
-# while True:
-#     t = int(input())
-#     stat = me.copy()
-#
-#     start = time.time()
-#     stat = add_buffs(stat, users[t], b)
-#     stat = add_buffs(stat, users[t], v)
-#     stat = add_buffs(stat, users[t], x)
-#     print(time.time() - start)
-#
-#     print(stat)
 
-b = 0
+while True:
+    t = int(input())
+    stat = me.copy()
 
-start = time.time()
-for i in range(10_000_000):
-    pass
+    start = time.time()
+    stat = add_buffs(stat, users[t], b)
+    stat = add_buffs(stat, users[t], v)
+    stat = add_buffs(stat, users[t], x)
+    print(time.time() - start)
 
-print(time.time() - start)
+    print(stat)
 
-b = 0
-code = '''
-for i in range(10_000_000):
-    pass
-'''
 
-start = time.time()
-exec(code)
-print(time.time() - start)

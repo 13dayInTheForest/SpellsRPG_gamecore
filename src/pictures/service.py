@@ -50,3 +50,8 @@ class ProfilePictureService(PictureService):
     style = settings.PROFILE_STYLE_PROMPT
     blob = 'profile_pictures'
 
+
+class CustomPictureService(PictureService):
+    style = ''
+    blob = 'stuff'
+

@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 import httpx
-from httpx._exceptions import HTTPError
+from httpx._exceptions import HTTPError, ReadTimeout
 
 from src.pictures.schemas import PicDetail, CreatePicRequest
 from src.core.interfaces import IAIPictureService
@@ -11,7 +11,7 @@ class FluxFreeAIPictureService(IAIPictureService):
     async def get_picture(self, pic_request: CreatePicRequest) -> PicDetail:
         try:
             async with httpx.AsyncClient() as together:
-                response = await together.post(
+                response = await together.post(timeout=4000,
 
                     url="https://api.together.xyz/v1/images/generations",
 
@@ -42,5 +42,8 @@ class FluxFreeAIPictureService(IAIPictureService):
                 )
         except HTTPError as e:
             raise HTTPException(status_code=400, detail=e)
+
+        except ReadTimeout:
+            raise HTTPException(status_code=400, detail='Together API Read Timeout')
 
 
