@@ -12,6 +12,7 @@ class PictureService:
     style = settings.DEFAULT_STYLE_PROMPT
     bucket = 'spells_pictures'
     blob = 'stuff'
+    pic_type = ''
 
     def __init__(self):
         self._ai_service: IAIPictureService = FluxFreeAIPictureService()
@@ -22,36 +23,39 @@ class PictureService:
         return await self._ai_service.get_picture(request)
 
     async def save(self, picture: UploadFile, user_id):
-        print(self.bucket, f'{self.blob}/{user_id}.jpg')
-        print(await self._cloud_service.exist(self.bucket, f'{self.blob}/{user_id}.jpg'))
-        if await self._cloud_service.exist(self.bucket, f'{self.blob}/{user_id}.jpg'):
-            print('exist')
-            return self._cloud_service.exist(self.bucket, f'{self.blob}/{user_id}.jpg')
         if picture.content_type != "image/jpeg":
             raise HTTPException(status_code=400, detail="Only JPG files are allowed")
 
         image = await picture.read()
-        response = await self._cloud_service.add(
+        response = await self._cloud_service.add_file(
             bucket_name='spells_pictures',
             file_data=image,
-            blob_name=f'{self.blob}/{user_id}-avatar.jpg'
+            blob_name=f'{self.blob}/{user_id}-{self.pic_type}.jpg'
         )
         return {'detail': response}
 
     async def get(self, user_id: int):
-        image = await self._cloud_service.fetch(
+        image = await self._cloud_service.fetch_file(
                 self.bucket,
-                f'{self.blob}/{user_id}-avatar.jpg'
+                f'{self.blob}/{user_id}-{self.pic_type}.jpg'
             ),
         return StreamingResponse(image, media_type='image/jpg')
+
+    async def delete(self, user_id: int):
+        return await self._cloud_service.delete_file(
+            bucket_name=self.bucket,
+            blob_name=f'{self.blob}/{user_id}-{self.pic_type}.jpg'
+        )
 
 
 class ProfilePictureService(PictureService):
     style = settings.PROFILE_STYLE_PROMPT
     blob = 'profile_pictures'
+    pic_type = 'avatar'
 
 
 class CustomPictureService(PictureService):
     style = ''
     blob = 'stuff'
+    pic_type = 'stuff'
 

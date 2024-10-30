@@ -19,6 +19,3 @@ class PicDetail(BaseModel):
     response_time: float
 
 
-class SavePicture(BaseModel):
-    user: str
-    file: Annotated[UploadFile, File(...)]

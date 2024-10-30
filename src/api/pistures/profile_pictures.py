@@ -26,6 +26,7 @@ async def get_profile_pic(user_id: int):
     return await pic_manager.get(user_id)
 
 
-@router.post('/update/{id}')
-async def update_profile_pic(user_id: int, picture: UploadFile = File(...)):
-    pass
+@router.delete('/delete/{user_id}')
+async def update_profile_pic(user_id: int):
+    pic_manager = ProfilePictureService()
+    return await pic_manager.delete(user_id)
