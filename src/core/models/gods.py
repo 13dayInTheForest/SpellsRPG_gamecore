@@ -1,5 +1,5 @@
-from sqlalchemy import Table, Column, String, Integer, Boolean, JSON
-from src.db.database import metadata
+from sqlalchemy import Table, Column, String, Integer, JSON
+from src.db.python_databases.database import metadata
 
 
 gods = Table(

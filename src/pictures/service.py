@@ -1,8 +1,8 @@
 from fastapi import UploadFile, HTTPException
 from fastapi.responses import StreamingResponse
 from src.core.config import settings
-from src.core.interfaces.cloud_storage import ICloudStorage
-from src.core.interfaces.ai_pictures import IAIPictureService
+from src.external_services.interfaces.cloud_storage import ICloudStorage
+from src.external_services.interfaces.ai_pictures import IAIPictureService
 from src.external_services.cloud_storage.gcs_service import GoogleCloudStorageService
 from src.external_services.pictures import FluxFreeAIPictureService
 from src.pictures.schemas import CreatePicRequest, PicDetail
