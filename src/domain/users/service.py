@@ -29,7 +29,7 @@ class UserService:
         await self.repo.delete(user_id)
         return user
 
-    async def find_user_by_telegram_id(self, telegram_id: int) -> UserSchema:
+    async def find_user_by_telegram_id(self, telegram_id: str) -> UserSchema:
         user = await self.repo.read_by_telegram_id(telegram_id)
         if user is None:
             raise HTTPException(status_code=404, detail=f'Not Found User with Telegram ID-{telegram_id}')

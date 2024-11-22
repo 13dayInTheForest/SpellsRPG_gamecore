@@ -12,11 +12,11 @@ class IUsersRepo(ABC):
         pass
 
     @abstractmethod
-    async def read_by_telegram_id(self, telegram_id: int) -> UserSchema:
+    async def read_by_telegram_id(self, telegram_id: str) -> UserSchema:
         pass
 
     @abstractmethod
-    async def update(self, user_updates: UpdateUserSchema) -> None:
+    async def update(self, user_id: int, user_updates: UpdateUserSchema) -> None:
         pass
 
     @abstractmethod

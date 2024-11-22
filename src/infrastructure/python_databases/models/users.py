@@ -7,7 +7,7 @@ users = Table(
     'users',
     metadata,
     Column('id', Integer, primary_key=True),
-    Column('telegram_id', Integer),
+    Column('telegram_id', String),
     Column('first_name', String),
     Column('last_name', String),
     Column('username', String),

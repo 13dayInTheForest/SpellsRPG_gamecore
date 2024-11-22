@@ -23,7 +23,7 @@ async def get_user_by_id(user_id: int) -> UserSchema:
 @router.patch('/{user_id}')
 async def update_user(user_updates: UpdateUserSchema, user_id: int) -> UserSchema:
     service = UserService()
-    return await service.update_user(user_updates)
+    return await service.update_user(user_id, user_updates)
 
 
 @router.delete('/{user_id}')
@@ -33,7 +33,7 @@ async def delete_user(user_id: int) -> UserSchema:
 
 
 @router.get('/find_by_tg/{telegram_id}')
-async def find_user_by_telegram_id(telegram_id: int):
+async def find_user_by_telegram_id(telegram_id: str):
     service = UserService()
     return await service.find_user_by_telegram_id(telegram_id)
 

@@ -5,7 +5,7 @@ from typing import Optional
 
 class UserSchema(BaseModel):
     id: int
-    telegram_id: int
+    telegram_id: str
     first_name: str
     last_name: str
     username: str
@@ -28,7 +28,7 @@ class UserSchema(BaseModel):
 
 
 class CreateUserSchema(BaseModel):
-    telegram_id: int
+    telegram_id: str
     first_name: str
     last_name: str
     username: str
@@ -53,14 +53,14 @@ class CreateUserSchemaForDB(CreateUserSchema):
 
 
 class UpdateUserSchema(BaseModel):
-    telegram_id: int = None
+    telegram_id: str = None
     first_name: str = None
     last_name: str = None
     username: str = None
     is_premium: bool = None
     can_join_groups: bool = None
     bio: str = None
-    birthdate: datetime.date
+    birthdate: datetime.date = None
     language_code: str = None
     current_character_id: int = None
     souls_balance: int = None
