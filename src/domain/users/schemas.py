@@ -53,7 +53,6 @@ class CreateUserSchemaForDB(CreateUserSchema):
 
 
 class UpdateUserSchema(BaseModel):
-    telegram_id: str = None
     first_name: str = None
     last_name: str = None
     username: str = None

@@ -8,7 +8,7 @@ class BaseRepo:
     def __init__(self, db: Database, model: Type[Table], schema: Type[BaseModel]):
         self.db = db
         self.model = model
-        self.schema = schema  # Схема самой сущности по типу UserSchema, для возвращения схемы, а не словаря
+        self.schema = schema  # Схема самой сущности по типу UserSchema
 
     async def create(self, obj: Type[BaseModel]) -> None:
         query = self.model.insert().values(**obj.dict())

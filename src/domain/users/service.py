@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from .repository import IUsersRepo
 from .schemas import *
-from src.infrastructure.di.repo_container import RepoContainer
+from src.di.repo_container import RepoContainer
 
 
 class UserService:
@@ -9,6 +9,12 @@ class UserService:
         self.repo: IUsersRepo = RepoContainer.user_repo()
 
     async def create_user(self, user: CreateUserSchema) -> UserSchema:
+        if await self.repo.read_by_telegram_id(user.telegram_id):
+            raise HTTPException(status_code=409, detail=f'User with telegram id-{user.telegram_id} Already exists')
+
+        if not user.telegram_id.isdigit():
+            raise HTTPException(status_code=400, detail=f'Telegram id must be Integer')
+
         user = CreateUserSchemaForDB(**user.dict())
         user_id = await self.repo.create(user)
         return await self.repo.read(user_id)
