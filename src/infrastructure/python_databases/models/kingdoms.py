@@ -8,11 +8,11 @@ users = Table(
     Column('id', Integer, primary_key=True),
     Column('kingdom_id', Integer),
     Column('name', String),
-    Column('title', String),
+    Column('title', String),  # Слоган королевства
     Column('avatar_url', String),
-    Column('emblem_url', String),
+    Column('gold', Integer, default=0),
 
-    Column('citizens_count', String),
+    Column('citizens_count', Integer),
     Column('registered_by_user_id', Integer, ForeignKey('users.id', ondelete='SET NULL')),
-    Column('registered_by_user_id', Integer, ForeignKey('users.id', ondelete='SET NULL')),
+    Column('king', Integer, ForeignKey('users.id', ondelete='SET NULL'))
 )
