@@ -10,6 +10,7 @@ class CharacterUseCase:
                  potential_service,
                  buffs
                  ):
+
         self.user_interface = user_service
         self.characters_interface = characters_service
 
