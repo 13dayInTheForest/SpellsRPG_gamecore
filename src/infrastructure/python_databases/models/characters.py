@@ -20,6 +20,10 @@ characters = Table(
     Column('type', String, default='player'),
     Column('born_date', DateTime, server_default=func.now()),
 
+    Column('armor', String, default=None, nullable=True),
+    Column('weapon', default=None, nullable=True),
+    Column('backpack_size', String, default=10),
+
     Column('can_speak', Boolean, default=True),
     Column('can_hear', Boolean, default=True),
     Column('can_see', Boolean, default=True),
@@ -27,6 +31,10 @@ characters = Table(
     Column('can_play', Boolean, default=True),
     Column('can_fight', Boolean, default=True),
     Column('can_defend', Boolean, default=True),
+
+    Column('can_worship_gods', Boolean, default=True),
+    Column('can_have_items', Boolean, default=True),
+    Column('can_have_backpack', Boolean, default=True),
     Column('can_have_friends', Boolean, default=True),
     Column('can_kill_players', Boolean, default=True),
 
@@ -36,10 +44,10 @@ characters = Table(
     Column('can_be_cursed', Boolean, default=True),
     Column('can_be_healed', Boolean, default=True),
 
-    Column('class_id', Integer, ForeignKey('classes.id', ondelete='SET NULL'), nullable=True),
-    Column('potential_id', Integer, ForeignKey('potentials.id', ondelete='SET NULL'), nullable=True),
-    Column('god_id', Integer, ForeignKey('gods.id', ondelete='SET NULL'), nullable=True),
-    Column('weakness_id', Integer, ForeignKey('weaknesses.id', ondelete='SET NULL'), nullable=True),
+    Column('class_id', String, default=None, nullable=True),  # Коллекция MongoDB
+    Column('potential_id', String, default=None, nullable=True),  # ---^
+    Column('god_id', String, default=None, nullable=True),  # ---------|
+    Column('weakness_id', String, default=None, nullable=True),  # ----|
     Column('born_kingdom_id', Integer, ForeignKey('kingdoms.id', ondelete='SET NULL'), nullable=True),
     Column('citizen_kingdom_id', Integer, ForeignKey('kingdoms.id', ondelete='SET NULL'), nullable=True),
 

@@ -4,7 +4,7 @@ from src.infrastructure.config import settings
 from src.domain.pictures.cloud_storage import ICloudStorage
 from src.domain.pictures.ai_pictures import IAIPictureService
 from src.domain.pictures.schemas import CreatePicRequest, PicDetail
-from src.di.pic_container import PicContainer
+from src.infrastructure.di.pic_container import PicContainer
 
 
 class PictureService:

@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from .repository import IUsersRepo
 from .schemas import *
-from src.di.repo_container import RepoContainer
+from src.infrastructure.di.repo_container import RepoContainer
 
 
 class UserService:

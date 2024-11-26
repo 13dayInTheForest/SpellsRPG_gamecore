@@ -20,6 +20,9 @@ class Settings(BaseSettings):
     PROFILE_STYLE_PROMPT: str
     TEMPLE_PROFILE_PROMPT: str
 
+    MONGO_URI: str
+    MONGO_DB_NAME: str
+
     @property
     def get_db_url(self):
         return f'postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}'

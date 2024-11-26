@@ -17,6 +17,9 @@ class CharacterSchema(BaseModel):
     title: Optional[str]
     type: str
     born_date: datetime
+    armor: str
+    weapon: str
+    backpack_size: int
     can_speak: bool
     can_hear: bool
     can_see: bool
@@ -24,6 +27,9 @@ class CharacterSchema(BaseModel):
     can_play: bool
     can_fight: bool
     can_defend: bool
+    can_worship_gods: bool
+    can_have_items: bool
+    can_have_backpack: bool
     can_have_friends: bool
     can_kill_players: bool
     can_be_killed: bool
@@ -31,10 +37,10 @@ class CharacterSchema(BaseModel):
     can_be_revived: bool
     can_be_cursed: bool
     can_be_healed: bool
-    class_id: Optional[int]
-    potential_id: Optional[int]
-    god_id: Optional[int]
-    weakness_id: Optional[int]
+    class_id: Optional[str]
+    potential_id: Optional[str]
+    god_id: Optional[str]
+    weakness_id: Optional[str]
     born_kingdom_id: Optional[int]
     citizen_kingdom_id: Optional[int]
     avatar_prompt: str
@@ -63,6 +69,9 @@ class CreateCharacterSchemaForDB(CreateCharacterSchema):
     exp_points: int = 10
     title: Optional[str] = None
     type: str = 'player'
+    armor: Optional[str] = None
+    weapon: Optional[str] = None
+    backpack_size: int = 10
     can_speak: bool = True
     can_hear: bool = True
     can_see: bool = True
@@ -70,6 +79,9 @@ class CreateCharacterSchemaForDB(CreateCharacterSchema):
     can_play: bool = True
     can_fight: bool = True
     can_defend: bool = True
+    can_worship_gods: bool = True
+    can_have_items: bool = True
+    can_have_backpack: bool = True
     can_have_friends: bool = True
     can_kill_players: bool = True
     can_be_killed: bool = True
@@ -77,10 +89,10 @@ class CreateCharacterSchemaForDB(CreateCharacterSchema):
     can_be_revived: bool = True
     can_be_cursed: bool = True
     can_be_healed: bool = True
-    class_id: Optional[int] = None
-    potential_id: Optional[int] = None
-    god_id: Optional[int] = None
-    weakness_id: Optional[int] = None
+    class_id: Optional[str] = None
+    potential_id: Optional[str] = None
+    god_id: Optional[str] = None
+    weakness_id: Optional[str] = None
     born_kingdom_id: Optional[int] = None
     citizen_kingdom_id: Optional[int] = None
     dungeon_cleared: int = 0
@@ -100,6 +112,9 @@ class UpdateCharacterSchema(BaseModel):
     exp_points: int = None
     title: Optional[str] = None
     type: str = None
+    armor: Optional[str] = None
+    weapon: Optional[str] = None
+    backpack_size: int = None
     can_speak: bool = None
     can_hear: bool = None
     can_see: bool = None
@@ -107,6 +122,9 @@ class UpdateCharacterSchema(BaseModel):
     can_play: bool = None
     can_fight: bool = None
     can_defend: bool = None
+    can_worship_gods: bool = True
+    can_have_items: bool = True
+    can_have_backpack: bool = True
     can_have_friends: bool = None
     can_kill_players: bool = None
     can_be_killed: bool = None
@@ -114,10 +132,10 @@ class UpdateCharacterSchema(BaseModel):
     can_be_revived: bool = None
     can_be_cursed: bool = None
     can_be_healed: bool = None
-    class_id: Optional[int] = None
-    potential_id: Optional[int] = None
-    god_id: Optional[int] = None
-    weakness_id: Optional[int] = None
+    class_id: Optional[str] = None
+    potential_id: Optional[str] = None
+    god_id: Optional[str] = None
+    weakness_id: Optional[str] = None
     born_kingdom_id: Optional[int] = None
     citizen_kingdom_id: Optional[int] = None
     avatar_prompt: str = None

@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from .repository import ICharacterRepo
 from .schemas import *
-from src.di.repo_container import RepoContainer
+from src.infrastructure.di.repo_container import RepoContainer
 from random import randint
 
 
