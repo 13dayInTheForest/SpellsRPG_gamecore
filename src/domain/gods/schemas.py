@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 
 class CreateGodSchema(BaseModel):
@@ -13,8 +13,9 @@ class CreateGodSchema(BaseModel):
     fight_changes: Dict[str, Any] = {}
     abilities: List[str] = []
 
+
 class GodsSchema(BaseModel):
-    _id: str
+    id: Optional[str]
     active: bool
     name: str
     description: str

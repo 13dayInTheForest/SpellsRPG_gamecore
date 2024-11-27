@@ -1,7 +1,6 @@
 from databases import Database
 from sqlalchemy import MetaData
 from sqlalchemy.dialects import postgresql
-from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.schema import CreateTable, DropTable
 
 from src.infrastructure.config import settings

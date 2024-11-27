@@ -7,7 +7,7 @@ from random import randint
 
 class CharacterService:
     def __init__(self):
-        self.repo: ICharacterRepo = RepoContainer.character_repo()
+        self.repo: ICharacterRepo = RepoContainer.characters_repo()
 
     async def create_character(self, character: CreateCharacterSchemaForDB) -> CharacterSchema:
         """

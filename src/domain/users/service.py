@@ -6,7 +6,7 @@ from src.infrastructure.di.repo_container import RepoContainer
 
 class UserService:
     def __init__(self):
-        self.repo: IUsersRepo = RepoContainer.user_repo()
+        self.repo: IUsersRepo = RepoContainer.users_repo()
 
     async def create_user(self, user: CreateUserSchema) -> UserSchema:
         if await self.repo.read_by_telegram_id(user.telegram_id):

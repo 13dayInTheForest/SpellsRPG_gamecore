@@ -1,11 +1,12 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 from src.domain.users.service import UserService
 from src.domain.users.schemas import *
 
 
 router = APIRouter(
     prefix='/users',
-    tags=['Users'])
+    tags=['Users']
+)
 
 
 @router.post('/')
@@ -33,7 +34,7 @@ async def delete_user(user_id: int) -> UserSchema:
 
 
 @router.get('/find_by_tg/{telegram_id}')
-async def find_user_by_telegram_id(telegram_id: str):
+async def find_user_by_telegram_id(telegram_id: str) -> UserSchema:
     service = UserService()
     return await service.find_user_by_telegram_id(telegram_id)
 

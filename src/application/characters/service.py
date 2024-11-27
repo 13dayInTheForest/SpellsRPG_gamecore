@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from src.domain.characters.schemas import *
 
 
 class ICharacterService(ABC):

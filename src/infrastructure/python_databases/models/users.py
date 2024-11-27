@@ -27,6 +27,7 @@ users = Table(
 
     Column('can_play', Boolean, default=True),
     Column('can_create_characters', Boolean, default=True),
+    Column('can_create_kingdoms', Boolean, default=True),
     Column('can_create_pictures', Boolean, default=True),
 
     Column('bot_blocked', Boolean, default=False),

@@ -1,26 +1,27 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Any, List
+from src.domain.gods.schemas import GodsSchema, UpdateGodsSchema, CreateGodSchema
 
 
 class IGodsRepo(ABC):
     @abstractmethod
-    async def create(self, document: Dict[str, Any]) -> str:
+    async def create(self, document: CreateGodSchema) -> str:
         pass
 
     @abstractmethod
-    async def find_one_by_id(self, god_id: str) -> dict:
+    async def find_one_by_id(self, god_id: str) -> GodsSchema:
         pass
 
     @abstractmethod
-    async def find_one_by_filter(self, doc_filter: Dict[str, Any]) -> Dict[str, Any]:
+    async def find_one_by_filter(self, doc_filter: Dict[str, Any]) -> GodsSchema:
         pass
 
     @abstractmethod
-    async def find_many_by_filter(self, doc_filter: Dict[str, Any], limit=5) -> List[Dict[str, Any]]:
+    async def find_many_by_filter(self, doc_filter: Dict[str, Any], limit: int =5) -> List[Dict[str, Any]]:
         pass
 
     @abstractmethod
-    async def update(self, god_id: str, update: Dict[str, Any]) -> None:
+    async def update(self, god_id: str, update: UpdateGodsSchema) -> None:
         pass
 
     @abstractmethod

@@ -1,7 +1,8 @@
 from .users import users
-from .characters import characters
-
+from .titles import titles
+from .kingdoms import kingdoms
 __all__ = [
     'users',
-    'characters'
+    'titles',
+    'kingdoms'
 ]

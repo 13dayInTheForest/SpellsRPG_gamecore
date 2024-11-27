@@ -21,8 +21,8 @@ characters = Table(
     Column('born_date', DateTime, server_default=func.now()),
 
     Column('armor', String, default=None, nullable=True),
-    Column('weapon', default=None, nullable=True),
-    Column('backpack_size', String, default=10),
+    Column('weapon', String, default=None, nullable=True),
+    Column('backpack_size', Integer, default=10),
 
     Column('can_speak', Boolean, default=True),
     Column('can_hear', Boolean, default=True),

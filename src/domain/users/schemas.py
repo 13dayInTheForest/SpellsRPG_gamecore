@@ -22,6 +22,7 @@ class UserSchema(BaseModel):
     suicide_count: int
     can_play: bool
     can_create_characters: bool
+    can_create_kingdoms: bool
     can_create_pictures: bool
     bot_blocked: bool
     start_play: datetime.datetime
@@ -48,6 +49,7 @@ class CreateUserSchemaForDB(CreateUserSchema):
     suicide_count: int = 0
     can_play: bool = True
     can_create_characters: bool = True
+    can_create_kingdoms: bool = True
     can_create_pictures: bool = True
     bot_blocked: bool = False
 
@@ -69,5 +71,6 @@ class UpdateUserSchema(BaseModel):
     suicide_count: int = None
     can_play: bool = None
     can_create_characters: bool = None
+    can_create_kingdoms: bool = True
     can_create_pictures: bool = None
     bot_blocked: bool = None
