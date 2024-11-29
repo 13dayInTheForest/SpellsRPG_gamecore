@@ -18,6 +18,7 @@ characters = Table(
     Column('exp_points', Integer, default=0),
     Column('title', String, ForeignKey('titles.id', ondelete='SET NULL'), default=None, nullable=True),
     Column('type', String, default='player'),
+    Column('reputation', Integer, default=0),
     Column('born_date', DateTime, server_default=func.now()),
 
     Column('armor', String, default=None, nullable=True),

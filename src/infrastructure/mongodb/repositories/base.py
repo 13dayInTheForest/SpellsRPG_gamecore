@@ -1,6 +1,7 @@
 from motor.motor_asyncio import AsyncIOMotorCollection
-from typing import List, Dict, Any, Type
+from typing import List, Dict, Any, Type, Optional
 from pydantic import BaseModel
+from bson import ObjectId
 
 
 class BaseRepo:
@@ -16,25 +17,37 @@ class BaseRepo:
         return result.inserted_id
 
     async def find_one_by_id(self, obj_id: str) -> Type[BaseModel] | None:
-        result = await self.collection.find_one({'_id': obj_id})
+        result = await self.collection.find_one({'_id': ObjectId(obj_id)})
+        if result is not None:
+            result = dict(result)
+            result['id'] = str(result.pop('_id'))
         return self.schema(**result) if result is not None else None
 
     async def find_one_by_filter(self, doc_filter: Dict[str, Any]) -> Type[BaseModel] | None:
         result = await self.collection.find_one(doc_filter)
+        if result is not None:
+            result['id'] = str(result.pop('_id'))
         return self.schema(**result) if result is not None else None
 
-    async def find_many_by_filter(self, doc_filter: Type[BaseModel], limit: int = 5) -> List[Dict[str, Any]]:
-        cursor = self.collection.find(doc_filter.dict(exclude_none=True))
-        return await cursor.to_list(length=limit)
+    async def find_many_by_filter(self,
+                                  doc_filter: Dict[str, Any],
+                                  limit: int = None
+                                  ) -> List[Dict[str, Any]]:
+        cursor = self.collection.find(doc_filter)
+        result = await cursor.to_list(length=limit)
+        for i in range(len(result)):
+            result[i]['id'] = str(result[i].pop('_id'))
+
+        return result
 
     async def update(self, obj_id: str, update: Type[BaseModel]) -> None:
         await self.collection.update_one(
-            {'_id': obj_id},
-            {'$set': update.dict()}
+            {'_id': ObjectId(obj_id)},
+            {'$set': update.dict(exclude_none=True)}
         )
 
     async def delete(self, obj_id: str) -> None:
-        await self.collection.delete_one({'_id': obj_id})
+        await self.collection.delete_one({'_id': ObjectId(obj_id)})
 
     async def get_collection_len(self) -> int:
         return await self.collection.estimated_document_count()

@@ -5,7 +5,7 @@ from src.application.pictures.service import ProfilePictureService
 
 router = APIRouter(
     prefix='/pic/profile',
-    tags=['pictures']
+    tags=['Pictures']
 
 )
 

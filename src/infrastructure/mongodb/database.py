@@ -12,3 +12,9 @@ collections = {
     'potentials': database['potential']
 }
 
+
+async def mongo_connect():
+    try:
+        await client.admin.command('ping')
+    except Exception as e:
+        print(f'error: {e}')

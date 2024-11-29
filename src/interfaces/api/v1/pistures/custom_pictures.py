@@ -9,7 +9,7 @@ from .profile_pictures import create_profile_pic
 
 router = APIRouter(
     prefix='/pic/custom',
-    tags=['pictures']
+    tags=['Pictures']
 )
 
 

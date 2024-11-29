@@ -3,20 +3,23 @@ from fastapi.responses import RedirectResponse
 from contextlib import asynccontextmanager
 from uvicorn import run as run_server
 from src.interfaces.api import api_v1
-from src.infrastructure.python_databases.database import database
+from src.infrastructure.python_databases.database import database as pd_database
+from src.infrastructure.mongodb.database import mongo_connect
 
 from src.infrastructure.python_databases.database import create_tables, delete_tables
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await database.connect()
+    await pd_database.connect()
     await create_tables()
+    await mongo_connect()
+
 
     yield
 
     await delete_tables()
-    await database.disconnect()
+    await pd_database.disconnect()
 
 
 app = FastAPI(
