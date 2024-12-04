@@ -19,3 +19,7 @@ class ICharacterRepo(ABC):
     async def delete(self, character_id: int) -> None:
         pass
 
+    @abstractmethod
+    async def find_character_by_telegram_id(self, telegram_id: str) -> CharacterSchema | None:
+        pass
+

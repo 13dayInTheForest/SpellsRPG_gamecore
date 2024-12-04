@@ -17,7 +17,12 @@ class BaseRepo:
     async def read(self, obj_id: int) -> Type[BaseModel] | None:
         query = self.model.select().where(self.model.c.id == obj_id)
         response = await self.db.fetch_one(query=query)
-        return self.schema(**dict(response)) if response else None
+        return self.schema(**dict(response)) if response is not None else None
+
+    async def read_one_by_field(self, filters: dict) -> Type[BaseModel] | None:
+        query = self.model.select().filter_by(**filters)
+        response = await self.db.fetch_one(query=query)
+        return self.schema(**dict(response)) if response is not None else None
 
     async def update(self, obj_id: int, obj_updates: Type[BaseModel]) -> None:
         query = self.model.update().values(**obj_updates.dict(exclude_none=True)).where(self.model.c.id == obj_id)

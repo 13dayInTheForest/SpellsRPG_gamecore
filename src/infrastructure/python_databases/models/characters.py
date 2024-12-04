@@ -10,13 +10,15 @@ characters = Table(
     Column('id', Integer, primary_key=True),
     Column('name', String(100)),
     Column('hp', Integer, default=100),
+    Column('max_hp', Integer, default=100),
     Column('max_age', Integer, default=70),
     Column('gold', Integer, default=100),
     Column('karma', Integer, default=10),
     Column('strength', Integer, default=10),
     Column('mana', Integer, default=10),
+    Column('max_mana', Integer, default=10),
     Column('exp_points', Integer, default=0),
-    Column('title', String, ForeignKey('titles.id', ondelete='SET NULL'), default=None, nullable=True),
+    Column('title', Integer, ForeignKey('titles.id', ondelete='SET NULL'), default=None, nullable=True),
     Column('type', String, default='player'),
     Column('reputation', Integer, default=0),
     Column('born_date', DateTime, server_default=func.now()),
@@ -45,10 +47,11 @@ characters = Table(
     Column('can_be_cursed', Boolean, default=True),
     Column('can_be_healed', Boolean, default=True),
 
-    Column('class_id', String, default=None, nullable=True),  # Коллекция MongoDB
-    Column('potential_id', String, default=None, nullable=True),  # ---^
-    Column('god_id', String, default=None, nullable=True),  # ---------|
-    Column('weakness_id', String, default=None, nullable=True),  # ----|
+    Column('telegram_user_id', String, default=None, nullable=True),
+    Column('class_id', String, default=None, nullable=True),
+    Column('potential_id', String, default=None, nullable=True),  # id класса, которому будет скидка и бонусы
+    Column('god_id', String, default=None, nullable=True),
+    Column('weakness_id', String, default=None, nullable=True),  # id эффекта
     Column('born_kingdom_id', Integer, ForeignKey('kingdoms.id', ondelete='SET NULL'), nullable=True),
     Column('citizen_kingdom_id', Integer, ForeignKey('kingdoms.id', ondelete='SET NULL'), nullable=True),
 

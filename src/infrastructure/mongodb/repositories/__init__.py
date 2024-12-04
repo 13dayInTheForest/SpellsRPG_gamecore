@@ -1,5 +1,7 @@
 from .gods import GodsRepo
+from .classes import ClassesRepo
 
-__all__=[
-    'GodsRepo'
+__all__ = [
+    'GodsRepo',
+    'ClassesRepo'
 ]

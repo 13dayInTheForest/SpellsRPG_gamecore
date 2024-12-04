@@ -1,24 +1,40 @@
-from src.domain.characters.schemas import CreateCharacterSchema
+from fastapi import HTTPException
+from datetime import datetime
+
+from src.domain.users.service import UserService
+from src.domain.users.schemas import UpdateUserSchema
+from src.domain.characters.service import CharacterService
+from src.domain.characters.schemas import CreateCharacterSchemaForDB, CreateCharacterSchema, CharacterSchema
+from src.domain.gods.service import GodsService
 
 
 class CharacterUseCase:
-    def __init__(self,
-                 user_service,
-                 characters_service,
-                 gods_service,
-                 weaknesses_service,
-                 potential_service,
-                 buffs
-                 ):
+    def __init__(self):
 
-        self.user_interface = user_service
-        self.characters_interface = characters_service
+        self.user_service = UserService()
+        self.characters_service = CharacterService()
+        self.god_service = GodsService()
 
-    async def create_character(self, character: CreateCharacterSchema):
-        pass
+    async def create_character(self, info: CreateCharacterSchema) -> CharacterSchema:
+        user = await self.user_service.find_user_by_telegram_id(info.telegram_user_id)
+        if not user.can_create_characters or not user.can_play:
+            raise HTTPException(status_code=403, detail=f'Current user-{user.telegram_id} can not create characters')
+        if user.current_character_id:
+            raise HTTPException(status_code=403, detail=f'Current user-{user.telegram_id} already have a character')
 
-    async def get_profile_stats(self):
-        pass
+        info = CreateCharacterSchemaForDB(**info.dict())
+        character = await self.characters_service.create_character(info)
+        await self.user_service.update_user(user.id, UpdateUserSchema(current_character_id=character.id))
+        return character
 
-    async def get_public_profile_stats(self):
-        pass
+    async def get_character_info(self, telegram_id: str) -> CharacterSchema:
+        character = await self.characters_service.find_character_by_telegram_id(telegram_id)
+        character.born_date = (datetime.now() - character.born_date).days + 18
+
+        if character.god_id:
+            god = await self.god_service.read(character.god_id)
+
+
+        return character
+
+

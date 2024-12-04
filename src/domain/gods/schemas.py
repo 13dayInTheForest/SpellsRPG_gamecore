@@ -10,8 +10,8 @@ class CreateGodSchema(BaseModel):
     terms: str
     picture_url: str
     needs: Dict[str, Any] = {}
-    changes: Dict[str, Any] = {}
-    fight_changes: Dict[str, Any] = {}
+    changes: List[str] = []
+    fight_changes: List[str] = []
     abilities: List[str] = []
 
 
@@ -23,8 +23,8 @@ class GodsSchema(BaseModel):
     terms: str
     picture_url: str
     needs: Dict[str, Any]
-    changes: Dict[str, Any]
-    fight_changes: Dict[str, Any]
+    changes: List[str]
+    fight_changes: List[str]
     abilities: List[str]
 
 
@@ -35,8 +35,8 @@ class UpdateGodsSchema(BaseModel):
     terms: str = None
     picture_url: str = None
     needs: Dict[str, Any] = None
-    changes: Dict[str, Any] = None
-    fight_changes: Dict[str, Any] = None
+    changes: List[str] = None
+    fight_changes: List[str] = None
     abilities: List[str] = None
 
 

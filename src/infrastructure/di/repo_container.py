@@ -11,6 +11,7 @@ from src.domain.characters.schemas import CharacterSchema
 from src.domain.titles.schemas import TitlesSchema
 from src.domain.kingdoms.schemas import KingdomSchema
 from src.domain.gods.schemas import GodsSchema
+from src.domain.classes.schemas import ClassesSchema
 
 
 class RepoContainer:
@@ -23,14 +24,20 @@ class RepoContainer:
         return CharacterRepo(database, characters, CharacterSchema)
 
     @staticmethod
-    def gods_repo():
-        return GodsRepo(collections.get('gods'), GodsSchema)
-
-    @staticmethod
     def titles_repo():
         return TitlesRepo(database, titles, TitlesSchema)
 
     @staticmethod
     def kingdoms_repo():
         return KingdomRepo(database, kingdoms, KingdomSchema)
+
+    @staticmethod
+    def gods_repo():
+        return GodsRepo(collections.get('gods'), GodsSchema)
+
+    @staticmethod
+    def classes_repo():
+        return ClassesRepo(collections.get('classes'), ClassesSchema)
+
+
 

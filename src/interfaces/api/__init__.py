@@ -5,6 +5,7 @@ from .v1.users.users_endpoint import router as users_endpoint
 from .v1.kingdoms.kingdoms_endpoint import router as kingdoms_endpoint
 from .v1.titles.titles_endpoint import router as titles_endpoint
 from .v1.gods.gods_endpoint import router as gods_endpoint
+from .v1.characters.characters_endpoint import router as characters_endpoint
 
 
 api_v1 = APIRouter(
@@ -17,3 +18,4 @@ api_v1.include_router(users_endpoint)
 api_v1.include_router(titles_endpoint)
 api_v1.include_router(kingdoms_endpoint)
 api_v1.include_router(gods_endpoint)
+api_v1.include_router(characters_endpoint)

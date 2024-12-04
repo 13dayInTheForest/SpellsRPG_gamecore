@@ -21,7 +21,7 @@ class KingdomsService:
     async def read(self, kingdom_id: int) -> KingdomSchema:
         kingdom = await self.repo.read(kingdom_id)
         if kingdom is None:
-            raise HTTPException(status_code=404, detail=f'Not Found Title with ID-{kingdom_id}')
+            raise HTTPException(status_code=404, detail=f'Not Found Kingdom with ID-{kingdom_id}')
         return kingdom
 
     async def update(self, kingdom_id: int, kingdom_updates: UpdateKingdomSchema) -> KingdomSchema:
