@@ -1,6 +1,8 @@
-from fastapi import APIRouter, Request, Depends
+from fastapi import APIRouter, Request, Depends, Body
 from src.domain.gods.schemas import *
 from src.domain.gods.service import GodsService
+
+from src.application.gods.usecase import GodsUseCase
 
 
 router = APIRouter(
@@ -43,4 +45,11 @@ async def update_god(god_id: str, updates: UpdateGodsSchema) -> GodsSchema:
 async def delete_god(god_id: str) -> GodsSchema:
     service = GodsService()
     return await service.delete(god_id)
+
+
+@router.post('/start_worshiping')
+async def start_worshiping(telegram_id: str = Body(...), god_name: str = Body(...)):
+    use_case = GodsUseCase()
+    return await use_case.start_worshiping(telegram_id, god_name)
+
 

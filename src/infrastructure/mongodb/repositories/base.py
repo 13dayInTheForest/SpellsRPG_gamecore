@@ -25,8 +25,9 @@ class BaseRepo:
 
     async def find_one_by_filter(self, doc_filter: Dict[str, Any]) -> Type[BaseModel] | None:
         result = await self.collection.find_one(doc_filter)
-        if result is not None:
-            result['id'] = str(result.pop('_id'))
+        if result:
+            result['id'] = str(result['_id'])
+        print(result)
         return self.schema(**result) if result is not None else None
 
     async def find_many_by_filter(self,

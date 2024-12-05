@@ -7,6 +7,8 @@ from src.domain.characters.service import CharacterService
 from src.domain.characters.schemas import CreateCharacterSchemaForDB, CreateCharacterSchema, CharacterSchema
 from src.domain.gods.service import GodsService
 
+from src.application.utils.changes import apply_effects
+
 
 class CharacterUseCase:
     def __init__(self):
@@ -30,10 +32,9 @@ class CharacterUseCase:
     async def get_character_info(self, telegram_id: str) -> CharacterSchema:
         character = await self.characters_service.find_character_by_telegram_id(telegram_id)
         character.born_date = (datetime.now() - character.born_date).days + 18
+        god = await self.god_service.read(character.god_id)
 
-        if character.god_id:
-            god = await self.god_service.read(character.god_id)
-
+        character = character.copy(update=apply_effects(character, god.changes).dict(exclude_none=True))
 
         return character
 

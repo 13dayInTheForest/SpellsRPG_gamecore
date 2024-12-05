@@ -15,6 +15,7 @@ class GodsRepo(BaseRepo, IGodsRepo):
     "description": Описание / История
     "terms": Описание условий, т.е. что нужно для того чтобы поклоняться
     "picture_url": ссылка на картинку бога
+    "needs_count": 1,
     "needs": [
         {"field": "hp", "operator": ">", "value": 100} -------В качестве операторов указываются ><=
         {"field": "exp_points", "operator": ">", "value": 10}
@@ -23,8 +24,11 @@ class GodsRepo(BaseRepo, IGodsRepo):
         {"field": "mana", "operation": "minus", "value": 10, "random": true},
         {"field": "hp", "operation": "plus", "value": 15, "depends": {"mana": 10}}
     ]
+    "to_stop": [
+        {"field": "mana", "operation": "minus", "value": 10, "random": true},
+        {"field": "hp", "operation": "plus", "value": 15, "depends": {"mana": 10}}
+    ]
     "abilities": [id способностей которые открываются]
     }
-    
 
 '''

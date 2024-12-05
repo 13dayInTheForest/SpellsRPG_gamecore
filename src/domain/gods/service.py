@@ -11,6 +11,8 @@ class GodsService:
         self.repo = RepoContainer.gods_repo()
 
     async def create(self, god: CreateGodSchema) -> GodsSchema:
+        if await self.repo.find_one_by_filter({'name': god.name}):
+            raise HTTPException(status_code=400, detail=f'God with name {god.name} already exists')
         god_id = await self.repo.create(god)
         return await self.repo.find_one_by_id(god_id)
 

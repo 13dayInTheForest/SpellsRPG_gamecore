@@ -9,23 +9,27 @@ class CreateGodSchema(BaseModel):
     description: str
     terms: str
     picture_url: str
-    needs: Dict[str, Any] = {}
-    changes: List[str] = []
-    fight_changes: List[str] = []
-    abilities: List[str] = []
+    needs_count: int
+    needs: list = []
+    changes: list = []
+    fight_changes: list = []
+    to_stop: list = []
+    abilities: list = []
 
 
 class GodsSchema(BaseModel):
-    id: Optional[str]
+    id: str
     active: bool
     name: str
     description: str
     terms: str
     picture_url: str
-    needs: Dict[str, Any]
-    changes: List[str]
-    fight_changes: List[str]
-    abilities: List[str]
+    needs: list
+    needs_count: int
+    changes: list
+    fight_changes: list
+    to_stop: list
+    abilities: list
 
 
 class UpdateGodsSchema(BaseModel):
@@ -34,10 +38,12 @@ class UpdateGodsSchema(BaseModel):
     description: str = None
     terms: str = None
     picture_url: str = None
-    needs: Dict[str, Any] = None
-    changes: List[str] = None
-    fight_changes: List[str] = None
-    abilities: List[str] = None
+    needs_count: int = None
+    needs: list = None
+    changes: list = None
+    fight_changes: list = None
+    to_stop: list = None
+    abilities: list = None
 
 
 class GodsQueryFilters(BaseModel):
@@ -46,4 +52,6 @@ class GodsQueryFilters(BaseModel):
     description: Optional[str] = None
     terms: Optional[str] = None
     picture_url: Optional[str] = None
+    needs_count: Optional[int] = None
+
 

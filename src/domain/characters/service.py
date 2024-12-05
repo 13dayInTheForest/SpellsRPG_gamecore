@@ -11,6 +11,7 @@ class CharacterService:
 
     async def create_character(self, character: CreateCharacterSchemaForDB) -> CharacterSchema:
         character.hp = randint(50, 300)
+        character.max_hp = character.hp
         character.max_age = randint(20, 100)
         character.gold = randint(5, 1000)
         character.karma = randint(0, 20)
