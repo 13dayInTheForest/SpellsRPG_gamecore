@@ -1,7 +1,7 @@
 from src.domain.characters.schemas import CharacterSchema
 
 
-async def check_needs(character: CharacterSchema, needs: list, needs_count: int) -> bool:
+def check_needs(character: CharacterSchema, needs: list, needs_count: int) -> bool:
     character = character.dict()
     if needs_count == 0:
         return True

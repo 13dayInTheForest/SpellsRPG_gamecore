@@ -28,6 +28,10 @@ class BaseRepo:
         query = self.model.update().values(**obj_updates.dict(exclude_none=True)).where(self.model.c.id == obj_id)
         return await self.db.execute(query=query)
 
+    async def update_fields(self, obj_id: int, updates: dict) -> None:
+        query = self.model.update().values(**updates).where(self.model.c.id == obj_id)
+        return await self.db.execute(query)
+
     async def delete(self, obj_id: int) -> None:
         query = self.model.delete().where(self.model.c.id == obj_id)
         return await self.db.execute(query=query)

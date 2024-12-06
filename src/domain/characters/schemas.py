@@ -94,7 +94,7 @@ class CreateCharacterSchemaForDB(CreateCharacterSchema):
     can_kill_players: bool = True
     can_be_killed: bool = True
     can_be_seen: bool = True
-    can_be_revived: bool = True
+    can_be_revived: bool = False
     can_be_cursed: bool = True
     can_be_healed: bool = True
     telegram_user_id: Optional[str] = None

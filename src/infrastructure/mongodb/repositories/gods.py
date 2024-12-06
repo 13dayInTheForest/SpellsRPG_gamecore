@@ -20,7 +20,11 @@ class GodsRepo(BaseRepo, IGodsRepo):
         {"field": "hp", "operator": ">", "value": 100} -------В качестве операторов указываются ><=
         {"field": "exp_points", "operator": ">", "value": 10}
     ]
-    "changes": [
+    "boost": [  ----------------- Применяются каждый раз
+        {"field": "mana", "operation": "minus", "value": 10, "random": true},
+        {"field": "hp", "operation": "plus", "value": 15, "depends": {"mana": 10}}
+    ]
+    "changes": [  ----------------- Применяются единожды при поклонении
         {"field": "mana", "operation": "minus", "value": 10, "random": true},
         {"field": "hp", "operation": "plus", "value": 15, "depends": {"mana": 10}}
     ]

@@ -27,7 +27,6 @@ class BaseRepo:
         result = await self.collection.find_one(doc_filter)
         if result:
             result['id'] = str(result['_id'])
-        print(result)
         return self.schema(**result) if result is not None else None
 
     async def find_many_by_filter(self,

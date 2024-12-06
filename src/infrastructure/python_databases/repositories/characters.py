@@ -7,3 +7,4 @@ class CharacterRepo(BaseRepo, ICharacterRepo):
         query = self.model.select().where(self.model.c.telegram_user_id == telegram_id)
         response = await self.db.fetch_one(query=query)
         return self.schema(**dict(response)) if response is not None else None
+

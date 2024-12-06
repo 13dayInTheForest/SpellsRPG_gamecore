@@ -52,4 +52,9 @@ class CharacterService:
         await self.repo.delete(character_id)
         return character
 
-
+    async def update_fields(self, character_id: int, fields: dict) -> CharacterSchema | None:
+        character = await self.repo.read(character_id)
+        if character is None:
+            return None
+        await self.repo.update_fields(character_id, fields)
+        return await self.repo.read(character_id)

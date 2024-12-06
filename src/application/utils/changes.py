@@ -4,9 +4,8 @@ import random
 from src.domain.characters.schemas import *
 
 
-def apply_effects(character: CharacterSchema, changes: list) -> UpdateCharacterSchema:
+def apply_effects(character: CharacterSchema, changes: list) -> CharacterSchema:
     character = character.dict()
-    new_stats = UpdateCharacterSchema.dict()
     if changes is not None:
         for change in changes:
             match change['operation']:
@@ -23,11 +22,11 @@ def apply_effects(character: CharacterSchema, changes: list) -> UpdateCharacterS
                         value = random.randint(0, value)
 
                     # Проверка на отрицательные числа, если значение уходит в минус, заменить значение на ноль
-                    if change['field'] < 0:
-                        character[change['mana']] = new_stats[change['mana']] = 0
-                    else:
-                        # В противном случае добавить результат value к полю
-                        character[change['field']] = new_stats[change['field']] = value + new_stats[change['field']]
+                    # Только поле gold может уходить в минус
+                    if character[change['field']] - value < 0 and change['field'] != 'gold':
+                        value = character[change['field']]
+                    # отнять результат value от поля
+                    character[change['field']] -= value
 
                 case 'plus':
 
@@ -42,12 +41,12 @@ def apply_effects(character: CharacterSchema, changes: list) -> UpdateCharacterS
 
                     # Проверка на лимиты, если value превышает max значение, то просто заменить на максимум
                     if change['field'] == 'mana' and value + character['mana'] > character['max_mana']:
-                        new_stats[change['mana']] = character['max_mana']
+                        character[change['mana']] = character['max_mana']
                     elif change['field'] == 'hp' and value + character['hp'] > character['max_hp']:
-                        new_stats[change['hp']] = character['max_hp']
+                        character[change['hp']] = character['max_hp']
                     else:
                         # В противном случае добавить результат value к полю
-                        new_stats[change['field']] += value
+                        character[change['field']] += value
 
                 case 'multiply':
 
@@ -62,12 +61,12 @@ def apply_effects(character: CharacterSchema, changes: list) -> UpdateCharacterS
 
                     # Проверка на лимиты, если value превышает max значение, то просто заменить на максимум
                     if change['field'] == 'mana' and value * character['mana'] > character['max_mana']:
-                        new_stats[change['mana']] = character['max_mana']
+                        character[change['mana']] = character['max_mana']
                     elif change['field'] == 'hp' and value * character['hp'] > character['max_hp']:
-                        new_stats[change['hp']] = character['max_hp']
+                        character[change['hp']] = character['max_hp']
                     else:
                         # В противном случае добавить результат value к полю
-                        new_stats[change['field']] *= value if value > 0 else 1
+                        character[change['field']] *= value if value > 0 else 1
 
                 case 'divide':
 
@@ -80,17 +79,17 @@ def apply_effects(character: CharacterSchema, changes: list) -> UpdateCharacterS
                     if change.get('random'):
                         value = random.randint(0, value)
                     # Деление без проверок потому что ниже нуля значение не сможет быть
-                    new_stats[change['field']] = int(character[change['field']] / value)
+                    character[change['field']] = int(character[change['field']] / value)
 
                 case 'replace':
                     if change.get('depends'):
                         # Создает итератор из словаря и берет первое значение
                         field, percent = next(iter(change['depends'].items()))
-                        new_stats[change['field']] = int(character[field] / 100 * percent)
+                        character[change['field']] = int(character[field] / 100 * percent)
                     else:
-                        new_stats[change['field']] = change['value']
+                        character[change['field']] = change['value']
 
-    return UpdateCharacterSchema(**new_stats)
+    return CharacterSchema(**character)
 
 
 # char = CreateCharacterSchemaForDB(**CreateCharacterSchema(
@@ -101,12 +100,14 @@ def apply_effects(character: CharacterSchema, changes: list) -> UpdateCharacterS
 #     avatar_url='asdasd'
 # ).dict())
 #
-# char = CharacterSchema(id=12, born_date=datetime.datetime.now(), **char.dict())
+# char = CharacterSchema(id=12, born_date=datetime.now(), **char.dict())
 #
 # chang = [
 #             {"field": "max_mana", "operation": "multiply", "value": 2},
 #             {"field": "mana", "operation": "replace", "depends": {'max_mana': 100}},
-#             {"field": "hp", "operation": "divide", "value": 10},
+#             {"field": "hp", "operation": "divide", "value": 2},
+#             {"field": "hp", "operation": "minus", "value": 1000},
+#             {"field": "gold", "operation": "minus", "value": 1000},
 #             {"field": "strength", "operation": "multiply", "depends": {'monsters_killed': 100}}
 #         ]
 #
@@ -116,6 +117,5 @@ def apply_effects(character: CharacterSchema, changes: list) -> UpdateCharacterS
 #
 #
 # result = apply_effects(char, chang)
-# print(result.max_mana, result.mana, result.strength, result.hp)
-# print(char.max_mana, char.mana, char.strength, char.hp)
-#
+# print(result.max_mana, result.mana, result.strength, result.hp, result.gold)
+

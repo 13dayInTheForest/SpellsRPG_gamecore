@@ -53,3 +53,8 @@ async def start_worshiping(telegram_id: str = Body(...), god_name: str = Body(..
     return await use_case.start_worshiping(telegram_id, god_name)
 
 
+@router.post('/stop_worshiping')
+async def start_worshiping(telegram_id: str = Body(...)):
+    use_case = GodsUseCase()
+    return await use_case.stop_worshiping(telegram_id)
+

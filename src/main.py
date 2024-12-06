@@ -15,10 +15,8 @@ async def lifespan(app: FastAPI):
     await create_tables()
     await mongo_connect()
 
-
     yield
 
-    await delete_tables()
     await pd_database.disconnect()
 
 

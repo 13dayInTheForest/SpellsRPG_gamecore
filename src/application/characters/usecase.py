@@ -2,9 +2,9 @@ from fastapi import HTTPException
 from datetime import datetime
 
 from src.domain.users.service import UserService
-from src.domain.users.schemas import UpdateUserSchema
+from src.domain.users.schemas import UpdateUserSchema, UserSchema
 from src.domain.characters.service import CharacterService
-from src.domain.characters.schemas import CreateCharacterSchemaForDB, CreateCharacterSchema, CharacterSchema
+from src.domain.characters.schemas import *
 from src.domain.gods.service import GodsService
 
 from src.application.utils.changes import apply_effects
@@ -29,13 +29,13 @@ class CharacterUseCase:
         await self.user_service.update_user(user.id, UpdateUserSchema(current_character_id=character.id))
         return character
 
-    async def get_character_info(self, telegram_id: str) -> CharacterSchema:
+    async def get_character_info_for_fight(self, telegram_id: str) -> CharacterSchema:
         character = await self.characters_service.find_character_by_telegram_id(telegram_id)
-        character.born_date = (datetime.now() - character.born_date).days + 18
-        god = await self.god_service.read(character.god_id)
+        god = await self.god_service.read_or_none(character.god_id)
 
-        character = character.copy(update=apply_effects(character, god.changes).dict(exclude_none=True))
+        if god is None:
+            await self.characters_service.update_fields(character.id, {'god_id': None})
+        character = apply_effects(character, god.fight_changes)
 
         return character
-
 

@@ -23,3 +23,6 @@ class ICharacterRepo(ABC):
     async def find_character_by_telegram_id(self, telegram_id: str) -> CharacterSchema | None:
         pass
 
+    @abstractmethod
+    async def update_fields(self, telegram_id: int, updates: dict) -> None:
+        pass

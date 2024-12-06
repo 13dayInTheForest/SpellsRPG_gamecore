@@ -7,7 +7,7 @@ users = Table(
     'users',
     metadata,
     Column('id', Integer, primary_key=True),
-    Column('telegram_id', String),
+    Column('telegram_id', String, unique=True),
     Column('first_name', String),
     Column('last_name', String),
     Column('username', String),
@@ -31,5 +31,6 @@ users = Table(
     Column('can_create_pictures', Boolean, default=True),
 
     Column('bot_blocked', Boolean, default=False),
+    Column('last_character_created', DateTime, nullable=True, default=None),
     Column('start_play', DateTime, server_default=func.now())
 )

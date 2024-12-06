@@ -25,6 +25,7 @@ class UserSchema(BaseModel):
     can_create_kingdoms: bool
     can_create_pictures: bool
     bot_blocked: bool
+    last_character_created: Optional[datetime.datetime]
     start_play: datetime.datetime
 
 
@@ -52,6 +53,7 @@ class CreateUserSchemaForDB(CreateUserSchema):
     can_create_kingdoms: bool = True
     can_create_pictures: bool = True
     bot_blocked: bool = False
+    last_character_created: Optional[datetime.datetime] = None
 
 
 class UpdateUserSchema(BaseModel):
@@ -74,3 +76,4 @@ class UpdateUserSchema(BaseModel):
     can_create_kingdoms: bool = True
     can_create_pictures: bool = None
     bot_blocked: bool = None
+    last_character_created: datetime.datetime = None

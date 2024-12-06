@@ -48,3 +48,11 @@ class GodsService:
         god = await self.read(god_id)
         await self.repo.delete(god_id)
         return god
+
+    async def read_or_none(self, god_id: str) -> GodsSchema | None:
+        if len(god_id) != 24:
+            return None
+        god = await self.repo.find_one_by_id(god_id)
+        if god is None:
+            return None
+        return god
