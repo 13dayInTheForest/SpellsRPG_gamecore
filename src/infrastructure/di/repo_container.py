@@ -12,6 +12,7 @@ from src.domain.titles.schemas import TitlesSchema
 from src.domain.kingdoms.schemas import KingdomSchema
 from src.domain.gods.schemas import GodsSchema
 from src.domain.classes.schemas import ClassesSchema
+from src.domain.skills.schemas import SkillsSchema
 
 
 class RepoContainer:
@@ -39,5 +40,7 @@ class RepoContainer:
     def classes_repo():
         return ClassesRepo(collections.get('classes'), ClassesSchema)
 
-
+    @staticmethod
+    def skills_repo():
+        return SkillsRepo(collections.get('skills'), SkillsSchema)
 

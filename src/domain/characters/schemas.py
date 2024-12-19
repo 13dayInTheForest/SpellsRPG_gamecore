@@ -57,7 +57,7 @@ class CharacterSchema(BaseModel):
     avatar_prompt_ru: str
     avatar_url: str
     dungeon_cleared: int
-    monsters_killed:int
+    monsters_killed: int
     human_killed: int
     friends_count: int
     short_texts: bool
@@ -240,3 +240,66 @@ class CharacterQueryFilters(BaseModel):
     human_killed: Optional[int] = None
     friends_count: Optional[int] = None
     short_texts: Optional[bool] = None
+
+
+class CharacterBattleSchema(BaseModel):
+    """skills: ['DEV_name', 'DEV_name']"""
+    skills: list
+    class_dev_name: str
+
+    id: int
+    name: str
+    hp: int
+    max_age: int
+    max_mana: int
+    max_hp: int
+    gold: int
+    karma: int
+    strength: int
+    mana: int
+    shield: int
+    max_shield: int
+    exp_points: int
+    title: Optional[str]
+    type: str
+    reputation: Optional[int]
+    born_date: datetime
+    unlimited_mana: bool
+    unlimited_karma: bool
+    unlimited_strength: bool
+    unlimited_shield: bool
+    armor: Optional[str]
+    weapon: Optional[str]
+    backpack_size: int
+    can_speak: bool
+    can_hear: bool
+    can_see: bool
+    can_move: bool
+    can_play: bool
+    can_fight: bool
+    can_defend: bool
+    can_worship_gods: bool
+    can_have_items: bool
+    can_have_backpack: bool
+    can_have_friends: bool
+    can_kill_players: bool
+    can_be_killed: bool
+    can_be_seen: bool
+    can_be_revived: bool
+    can_be_cursed: bool
+    can_be_healed: bool
+    telegram_user_id: Optional[str]
+    class_id: Optional[str]
+    potential_id: Optional[str]
+    god_id: Optional[str]
+    weakness_id: Optional[str]
+    born_kingdom_id: Optional[int]
+    citizen_kingdom_id: Optional[int]
+    avatar_prompt: str
+    avatar_prompt_ru: str
+    avatar_url: str
+    dungeon_cleared: int
+    monsters_killed: int
+    human_killed: int
+    friends_count: int
+    short_texts: bool

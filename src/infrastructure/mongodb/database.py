@@ -7,7 +7,8 @@ database = client[settings.MONGO_DB_NAME]
 
 collections = {
     'gods': database['gods'],
-    'classes': database['classes']
+    'classes': database['classes'],
+    'skills': database['classes']
 }
 
 

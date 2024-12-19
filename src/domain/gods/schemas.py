@@ -1,6 +1,5 @@
 from pydantic import BaseModel
-from typing import Any, Dict, List, Optional
-from fastapi import Query
+from typing import Optional
 
 
 class CreateGodSchema(BaseModel):

@@ -5,6 +5,7 @@ from typing import Optional
 class ClassesSchema(BaseModel):
     id: int
     name: str
+    dev_name: str
     description: str
     terms: Optional[str]
     picture_url: Optional[str]
@@ -15,6 +16,7 @@ class ClassesSchema(BaseModel):
 
 class CreateClassesSchema(BaseModel):
     name: str
+    dev_name: str
     description: str
     terms: str
     picture_url: str = None
@@ -25,6 +27,7 @@ class CreateClassesSchema(BaseModel):
 
 class UpdateClassesSchema(BaseModel):
     name: str = None
+    dev_name: str = None
     description: str = None
     terms: str = None
     picture_url: str = None
@@ -35,6 +38,7 @@ class UpdateClassesSchema(BaseModel):
 
 class ClassQueryFilters(BaseModel):
     name: Optional[str] = None
+    dev_name: Optional[str] = None
     description: Optional[str] = None
     terms: Optional[str] = None
     picture_url: Optional[str] = None

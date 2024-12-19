@@ -10,6 +10,7 @@ class ClassesRepo(BaseRepo, IClassesRepo):
 {
     "id": int,
     "name": str,
+    "dev_name": str,
     "description": str,
     "terms": Optional[str],
     "picture_url": Optional[str],

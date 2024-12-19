@@ -17,22 +17,18 @@ class GodsRepo(BaseRepo, IGodsRepo):
     "picture_url": ссылка на картинку бога
     "needs_count": 1,
     "needs": [
-        {"field": "hp", "operator": ">", "value": 100} -------В качестве операторов указываются ><=
+        {"field": "hp", "operator": ">", "value": 100} ----------В качестве операторов указываются ><=
         {"field": "exp_points", "operator": ">", "value": 10}
-    ]
-    "boost": [  ----------------- Применяются каждый раз
-        {"field": "mana", "operation": "minus", "value": 10, "random": true},
+    ],
+    "changes": [  ---------------------------------------------- Применяются единожды при поклонении
+        {"field": "mana", "operation": "minus", "value": 10},
         {"field": "hp", "operation": "plus", "value": 15, "depends": {"mana": 10}}
-    ]
-    "changes": [  ----------------- Применяются единожды при поклонении
-        {"field": "mana", "operation": "minus", "value": 10, "random": true},
-        {"field": "hp", "operation": "plus", "value": 15, "depends": {"mana": 10}}
-    ]
+    ],
     "to_stop": [
-        {"field": "mana", "operation": "minus", "value": 10, "random": true},
+        {"field": "mana", "operation": "minus", "value": 10},
         {"field": "hp", "operation": "plus", "value": 15, "depends": {"mana": 10}}
     ]
-    "abilities": [id способностей которые открываются]
+    "skills": [id способностей которые открываются]
     }
 
 '''
