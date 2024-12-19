@@ -14,14 +14,23 @@ characters = Table(
     Column('max_age', Integer, default=70),
     Column('gold', Integer, default=100),
     Column('karma', Integer, default=10),
+    Column('max_karma', Integer, default=10),
     Column('strength', Integer, default=10),
+    Column('max_strength', Integer, default=10),
     Column('mana', Integer, default=10),
     Column('max_mana', Integer, default=10),
+    Column('shield', Integer, default=0),  # ---------------------
+    Column('max_shield', Integer, default=0),  # ---------------------
     Column('exp_points', Integer, default=0),
     Column('title', Integer, ForeignKey('titles.id', ondelete='SET NULL'), default=None, nullable=True),
     Column('type', String, default='player'),
     Column('reputation', Integer, default=0),
     Column('born_date', DateTime, server_default=func.now()),
+
+    Column('unlimited_mana', Boolean, default=False),
+    Column('unlimited_karma', Boolean, default=False),
+    Column('unlimited_strength', Boolean, default=False),
+    Column('unlimited_shield', Boolean, default=False),
 
     Column('armor', String, default=None, nullable=True),
     Column('weapon', String, default=None, nullable=True),
@@ -34,6 +43,9 @@ characters = Table(
     Column('can_play', Boolean, default=True),
     Column('can_fight', Boolean, default=True),
     Column('can_defend', Boolean, default=True),
+
+    Column('can_work', Boolean, default=True),
+    Column('can_work', Boolean, default=True),
 
     Column('can_worship_gods', Boolean, default=True),
     Column('can_have_items', Boolean, default=True),
@@ -62,5 +74,7 @@ characters = Table(
     Column('dungeon_cleared', Integer, default=0),
     Column('monsters_killed', Integer, default=0),
     Column('human_killed', Integer, default=0),
-    Column('friends_count', Integer, default=0)
+    Column('friends_count', Integer, default=0),
+
+    Column('short_texts', Boolean, default=False)
 )

@@ -21,6 +21,10 @@ class ClassesRepo(BaseRepo, IClassesRepo):
         {"field": "mana", "operation": "minus", "value": 10},
         {"field": "hp", "operation": "plus", "value": 15, "depends": {"mana": 10}}
     ],
+    "skills": [
+        "id",
+        "id"
+    ]
 }
 
 '''

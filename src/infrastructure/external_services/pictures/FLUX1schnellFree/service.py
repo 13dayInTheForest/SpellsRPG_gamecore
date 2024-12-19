@@ -23,7 +23,7 @@ class FluxFreeAIPictureService(IAIPictureService):
                         "model": "black-forest-labs/FLUX.1-schnell",
                         "prompt": pic_request.prompt,
                         "width": 1024,
-                        "height": 1024,
+                        "height": 768,
                         "steps": 4,
                         "n": 1,
                         "response_format": "url",

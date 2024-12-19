@@ -10,6 +10,7 @@ class ClassesSchema(BaseModel):
     picture_url: Optional[str]
     needs: list
     changes: list
+    skills: list
 
 
 class CreateClassesSchema(BaseModel):
@@ -19,6 +20,7 @@ class CreateClassesSchema(BaseModel):
     picture_url: str = None
     needs: list = []
     changes: list
+    skills: list
 
 
 class UpdateClassesSchema(BaseModel):
@@ -28,6 +30,7 @@ class UpdateClassesSchema(BaseModel):
     picture_url: str = None
     needs: list = None
     changes: list = None
+    skills: list = None
 
 
 class ClassQueryFilters(BaseModel):
@@ -37,3 +40,4 @@ class ClassQueryFilters(BaseModel):
     picture_url: Optional[str] = None
     needs: Optional[list] = None
     changes: Optional[list] = None
+    skills: Optional[list] = None

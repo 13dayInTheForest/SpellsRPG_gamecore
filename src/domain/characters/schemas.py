@@ -15,11 +15,17 @@ class CharacterSchema(BaseModel):
     karma: int
     strength: int
     mana: int
+    shield: int
+    max_shield: int
     exp_points: int
     title: Optional[str]
     type: str
     reputation: Optional[int]
     born_date: datetime
+    unlimited_mana: bool
+    unlimited_karma: bool
+    unlimited_strength: bool
+    unlimited_shield: bool
     armor: Optional[str]
     weapon: Optional[str]
     backpack_size: int
@@ -54,29 +60,38 @@ class CharacterSchema(BaseModel):
     monsters_killed:int
     human_killed: int
     friends_count: int
+    short_texts: bool
 
 
 class CreateCharacterSchema(BaseModel):
     telegram_user_id: Optional[str]
     name: str = Field(..., min_length=2, max_length=100)
-    avatar_prompt: str = settings.DEFAULT_STYLE_PROMPT
-    avatar_prompt_ru: str
-    avatar_url: str
 
 
 class CreateCharacterSchemaForDB(CreateCharacterSchema):
+    avatar_prompt: str = ''
+    avatar_prompt_ru: str = ''
+    avatar_url: str = ''
     hp: int = 100
     max_age: int = 70
     max_mana: int = 10
     max_hp: int = 100
+    max_strength: int = 10
+    max_karma: int = 10
     gold: int = 100
     karma: int = 10
     strength: int = 10
     mana: int = 10
+    shield: int = 0
+    max_shield: int = 0
     exp_points: int = 10
     title: Optional[str] = None
     type: str = 'player'
     reputation: int = 0
+    unlimited_mana: bool = False
+    unlimited_karma: bool = False
+    unlimited_strength: bool = False
+    unlimited_shield: bool = False
     armor: Optional[str] = None
     weapon: Optional[str] = None
     backpack_size: int = 10
@@ -108,6 +123,7 @@ class CreateCharacterSchemaForDB(CreateCharacterSchema):
     monsters_killed: int = 0
     human_killed: int = 0
     friends_count: int = 0
+    short_texts: bool = False
 
 
 class UpdateCharacterSchema(BaseModel):
@@ -120,10 +136,16 @@ class UpdateCharacterSchema(BaseModel):
     karma: int = None
     strength: int = None
     mana: int = None
+    shield: int = None
+    max_shield: int = None
     exp_points: int = None
     title: Optional[str] = None
     type: str = None
     reputation: int = None
+    unlimited_mana: bool = None
+    unlimited_karma: bool = None
+    unlimited_strength: bool = None
+    unlimited_shield: bool = None
     armor: Optional[str] = None
     weapon: Optional[str] = None
     backpack_size: int = None
@@ -158,6 +180,7 @@ class UpdateCharacterSchema(BaseModel):
     monsters_killed: int = None
     human_killed: int = None
     friends_count: int = None
+    short_texts: bool = None
 
 
 class CharacterQueryFilters(BaseModel):
@@ -165,17 +188,23 @@ class CharacterQueryFilters(BaseModel):
     name: Optional[str] = None
     hp: Optional[int] = None
     max_age: Optional[int] = None
-    max_mana: int = None
-    max_hp: int = None
+    max_mana: Optional[int] = None
+    max_hp: Optional[int] = None
     gold: Optional[int] = None
     karma: Optional[int] = None
     strength: Optional[int] = None
     mana: Optional[int] = None
+    shield: Optional[int] = None
+    max_shield: Optional[int] = None
     exp_points: Optional[int] = None
     title: Optional[str] = None
     type: Optional[str] = None
     reputation: Optional[int] = None
     born_date: Optional[datetime] = None
+    unlimited_mana: Optional[bool] = None
+    unlimited_karma: Optional[bool] = None
+    unlimited_strength: Optional[bool] = None
+    unlimited_shield: Optional[bool] = None
     armor: Optional[str] = None
     weapon: Optional[str] = None
     backpack_size: Optional[int] = None
@@ -210,3 +239,4 @@ class CharacterQueryFilters(BaseModel):
     monsters_killed: Optional[int] = None
     human_killed: Optional[int] = None
     friends_count: Optional[int] = None
+    short_texts: Optional[bool] = None
